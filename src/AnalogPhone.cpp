@@ -54,6 +54,19 @@ AnalogPhone::~AnalogPhone()
     Logger::debug("AnalogPhone::~AnalogPhone()...");
 }
 
+
+bool AnalogPhone::blockNumber(const std::string number) {
+    std::string res;
+    // TODO: externalize URL
+    bool succeeded = Utils::executeCommand("curl http://localhost/api/call?number=" + number, &res);
+    if (!succeeded) {
+        Logger::error("Failed to access the API");
+        return false;
+    }
+
+    return res == "blocked=true";
+}
+
 bool AnalogPhone::init(const std::string device)
 {
     Logger::debug("AnalogPhone::init(%s)...", device.c_str());
@@ -128,9 +141,8 @@ void AnalogPhone::run()
             } // for
 
             if (m_foundCID) {
-                std::string msg;
-                block = false;  // TODO
-                Logger::notice(msg.c_str());
+                block = blockNumber(number);
+                Logger::info("Blocking number? %s", block ? "yes" : "no");
             }
 
             // if (block) {

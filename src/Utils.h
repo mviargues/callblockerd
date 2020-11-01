@@ -43,6 +43,8 @@ public:
 
     // phone number
     static void parseCallerID(std::string& rData, std::vector<std::pair<std::string, std::string>>* pResult);
+    
+    static bool executeCommand(const std::string& rCmd, std::string* pRes);
 };
 
 #endif

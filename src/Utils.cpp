@@ -157,3 +157,31 @@ void Utils::parseCallerID(std::string& rData, std::vector<std::pair<std::string,
         pResult->push_back(p);
     }
 }
+
+bool Utils::executeCommand(const std::string& cmd, std::string* pRes)
+{
+    Logger::debug("executing(%s)...", cmd.c_str());
+
+    FILE* fp = popen(cmd.c_str(), "r");
+    if (fp == nullptr) {
+        Logger::warn("popen failed (%s)", strerror(errno));
+        return false;
+    }
+
+    std::string res = "";
+    char buf[128];
+    while (fgets(buf, sizeof(buf), fp) != nullptr) {
+        res += buf;
+    }
+    Utils::trim(&res);
+
+    int status = pclose(fp);
+    if (status != 0) {
+        Logger::warn("%s failed (%s)", cmd.c_str(), res.c_str());
+        return false;
+    }
+
+    Logger::debug("result: '%s'", res.c_str());
+    *pRes = res;
+    return true;
+}

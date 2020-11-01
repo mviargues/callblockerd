@@ -42,6 +42,7 @@ public:
     virtual ~AnalogPhone();
     bool init(const std::string device);
     void run();
+    bool blockNumber(const std::string number);
 };
 
 #endif
