@@ -25,8 +25,6 @@
 #include "Modem.h"
 #include "TimerUtil.h"
 
-#define BLOCK_ANONYMOUS_NUMBER_STR "anonymous"
-
 class AnalogPhone {
 private:
     Modem m_modem;

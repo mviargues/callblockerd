@@ -116,7 +116,7 @@ void AnalogPhone::run()
             //Logger::debug("CID(orig): '%s'", data.c_str());
 
             bool block = false;
-            std::string number = "";
+            std::string number = "none";
             std::string name = "";
 
             std::vector<std::pair<std::string, std::string>> result;
@@ -127,23 +127,14 @@ void AnalogPhone::run()
                 Logger::debug("CID(tok): '%s=%s'", key.c_str(), value.c_str());
 
                 if (key == "NMBR") {
-                    m_foundCID = true;
                     number = value;
-
-                    if (number == "PRIVATE") {
-                        // Caller ID information has been blocked by the user of the other end
-                        // see http://ads.usr.com/support/3453c/3453c-ug/dial_answer.html#IDfunctions
-                        number = BLOCK_ANONYMOUS_NUMBER_STR;
-                    }
                 } else if (key == "NAME") {
                     name = value;
                 }
             } // for
 
-            if (m_foundCID) {
-                block = blockNumber(number);
-                Logger::info("Blocking number? %s", block ? "yes" : "no");
-            }
+            block = blockNumber(number);
+            Logger::info("Blocking number? %s", block ? "yes" : "no");
 
             // if (block) {
             //     m_modem.sendCommand(AT_PICKUP_STR); // pickup
