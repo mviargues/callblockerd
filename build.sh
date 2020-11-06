@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Compile the callblocker deamon locally.
 # Use docker_build.sh to build for ARM if you are not on an ARM machine.
 
