@@ -1,4 +1,5 @@
-# Compile the callblocker deamon
+# Compile the callblocker deamon locally.
+# Use docker_build.sh to build for ARM if you are not on an ARM machine.
 
 set -e
 
@@ -12,6 +13,3 @@ fi
 pushd src
 gcc *.cpp -lstdc++ -o ../${OUTPUT_DIR}/callblockerd
 popd
-
-# DEBUG: for testing
-./${OUTPUT_DIR}/callblockerd
