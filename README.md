@@ -22,6 +22,17 @@ Then run
 ./build.sh
 ```
 
+To build for the ARM architecture you can use
+```bash
+./docker_build.sh
+```
+
+This will use a container to build it.  
+Note that the repository must use Unix new lines LR, so make sure autocrlf is false for this repository on Windows
+```
+git config core.autocrlf false
+```
+
 ## Setup
 - attach the USB modem to the Raspberry Pi
 - use `dmesg` to find the device name `/dev/<name>`
