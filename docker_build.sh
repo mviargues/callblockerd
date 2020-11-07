@@ -25,6 +25,6 @@ docker cp ${CONTAINER_NAME}:/usr/src/out/callblockerd ./${OUTPUT_DIR}/callblocke
 
 # Stop the container which is sleeping
 echo "Stopping the container..."
-docker stop ${CONTAINER_NAME}
+docker stop -t 0 ${CONTAINER_NAME}
 
 echo "Build done!"
